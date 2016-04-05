@@ -55,7 +55,7 @@ gulp
   .task('less', function () {
     //less compilation, autoprefixer and minify
     return gulp.src([sourcePath + '/less/app.less'])
-      .pipe(sourcemaps.init({loadMaps: true})),
+      //.pipe( sourcemaps.init() )
       .pipe(less({
         compress: false,
         plugins: [autoprefix, cleancss],
@@ -64,7 +64,7 @@ gulp
       .on("error", notify.onError(function (error) {
            return "Error: " + error.message;
        })))
-      .pipe(sourcemaps.write('./')),
+      //.pipe( sourcemaps.write({ sourceRoot: targetPath + '/css' }) )
       .pipe(gulp.dest(targetPath + '/css'));
   })
   
