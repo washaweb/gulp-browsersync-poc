@@ -1,0 +1,109 @@
+// ------------------------------------
+//   common title styles
+// ------------------------------------
+
+// h1, .h1 {
+
+// }
+
+// h2, .h2 {
+  
+// }
+
+// h3, .h3 {
+  
+// }
+
+// h4, .h4 {
+  
+// }
+
+// ------------------------------------
+//   type styles
+// ------------------------------------
+
+.underline {
+  border-bottom: 1px solid @gray-lighter;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  @media (min-width: @screen-sm-min) {
+    padding-bottom: 15px;
+  }
+}
+
+a {
+    transition: all 0.3s ease;
+}
+
+// ------------------------------------
+//   lists
+// ------------------------------------
+
+
+.list-chevrons {
+  padding-left: @list-padding-left;
+  margin-left: @list-padding-left/2;
+  margin-bottom: 30px;
+
+  //list-inline case
+  &.list-inline {
+    margin-left: 0px;
+    padding-left: 0px;
+    li {
+      margin-left: @list-padding-left;
+      padding-left: 0px;
+    }
+  }
+
+  li {
+    list-style: none;
+    position: relative;
+    padding-bottom: 5px;
+    a {
+      color: @text-color;
+      .transition(color 0.3s ease);
+      &:hover, &:focus {
+        color: @brand-primary;
+        text-decoration: none;
+      }
+    }
+    &:before {
+      .fa-icon;
+      content: @list-chevron;
+      display: block;
+      color: @brand-primary;
+      top: .225em;
+      left: -@list-padding-left;
+      position: absolute;
+    }
+
+    > ul {
+      padding-left: 20px;
+    }
+  } 
+}
+
+.list-double-chevrons {
+  .list-chevrons;
+  li:before {
+    content: @list-chevron-double;
+  }
+}
+
+.list-pdf {
+  .list-chevrons;
+  li:before {
+    content: @list-pdf;
+  }
+}
+
+.list-bullet {
+  .list-chevrons;
+  li {
+    &:before {
+      font-family: inherit !important;
+      content: "•";
+      font-size: 1.3em;
+    }
+  }
+}
