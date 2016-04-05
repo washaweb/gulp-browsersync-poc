@@ -1,5 +1,4 @@
 var gulp = require('gulp'),
-    dirSync = require('gulp-directory-sync'),
     browserify = require('gulp-browserify'),
     less = require('gulp-less'),
     path = require('path'),
@@ -22,8 +21,8 @@ var baseDir = '.',
 
 
 gulp
-  // watch less/js/html/img files for changes, run the Less preprocessor with the 'less' task and reload
   .task('serve', function() {
+    // watch less/js/html/img files for changes, run the Less preprocessor with the 'less' task and reload
     browserSync({
       server: {
         //proxy: "yourlocal.dev",
@@ -36,22 +35,27 @@ gulp
     gulp.watch(sourcePath + "/img/*", ['img-watch']);
     gulp.watch(baseDir + "/*.html").on('change', browserSync.reload);
   })
+
   .task('resources', function() {
-    return gulp.src( '' )
-      // .pipe(dirSync(
-      //   node + '/[anyvendor]/', vendor + '/[anyvendor]/', { printSummary: true } )
-      // )
-      .pipe(dirSync(
-        sourcePath + '/favicons', targetPath + '/favicons/', { printSummary: true } )
-      )
-      .pipe(dirSync(
-        node + '/font-awesome/fonts', targetPath + '/fonts/', { printSummary: true } )
-      )
+    //copy needed resources to `dist` folder
+    gulp
+      .src( sourcePath + '/favicons/*',
+        {base: sourcePath + '/favicons/'})
+      .pipe(gulp.dest( targetPath + '/favicons'));
+    gulp
+      .src( sourcePath + '/fonts/*',
+        {base: sourcePath + '/fonts/'})
+      .pipe(gulp.dest( targetPath + '/fonts'));
+    gulp
+      .src( node + '/font-awesome/fonts/*',
+        {base: node  + '/font-awesome/fonts/'})
+      .pipe(gulp.dest( targetPath + '/fonts'));
   })
-  //less compilation, autoprefixer and minify
+  
   .task('less', function () {
+    //less compilation, autoprefixer and minify
     return gulp.src([sourcePath + '/less/app.less'])
-      //.pipe(sourcemaps.init({loadMaps: true})),
+      .pipe(sourcemaps.init({loadMaps: true})),
       .pipe(less({
         compress: false,
         plugins: [autoprefix, cleancss],
@@ -60,11 +64,12 @@ gulp
       .on("error", notify.onError(function (error) {
            return "Error: " + error.message;
        })))
-      //.pipe(sourcemaps.write('./')),
+      .pipe(sourcemaps.write('./')),
       .pipe(gulp.dest(targetPath + '/css'));
   })
-  // process JS files with browserify
+  
   .task('js', function() {
+    // process JS files with browserify
     return gulp.src(sourcePath + '/js/app.js')
       .pipe(browserify({
         insertGlobals : true,
@@ -75,12 +80,14 @@ gulp
        }))
       .pipe(gulp.dest(targetPath + '/js'));
   })
+
   //task watch reload order management
   .task('less-watch', ['less'], browserSync.reload)
   .task('js-watch', ['js'], browserSync.reload)
   .task('img-watch', ['img'], browserSync.reload)
-  //copy and optimize images
+  
   .task('img', function () {
+    //copy and optimize images
     return gulp.src(sourcePath + '/img/*')
       .pipe(imagemin({
           progressive: true,
@@ -88,6 +95,7 @@ gulp
       }))
       .pipe(gulp.dest(targetPath + '/img'));
   })
+
   //default task
   .task('default', ['resources', 'less', 'js', 'img', 'serve'])
   .task('build', ['resources', 'less', 'js', 'img']);
