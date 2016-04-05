@@ -40,7 +40,10 @@ gulp
     return gulp.src( '' )
       // .pipe(dirSync(
       //   node + '/[anyvendor]/', vendor + '/[anyvendor]/', { printSummary: true } )
-      // ),
+      // )
+      .pipe(dirSync(
+        sourcePath + '/favicons', targetPath + '/favicons/', { printSummary: true } )
+      )
       .pipe(dirSync(
         node + '/font-awesome/fonts', targetPath + '/fonts/', { printSummary: true } )
       )

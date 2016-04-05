@@ -1,10 +1,14 @@
 {
   "name": "less-bootstrap-kickstart",
   "version": "1.0.1",
-  "description": "Bootstrap html starter kit with gulp and browserify",
+  "description": "A Bootstrap and Font-Awesome HTML starter kit with gulp and browserify",
   "main": "assets/js/app.js",
-  "author": "jerome poslednik",
+  "author": "jerome poslednik <webmaster@washaweb.com>",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/washaweb/gulp-browsersync-poc.git"
+  },
   "devDependencies": {
     "browser-sync": "^2.9.11",
     "gulp": "^3.9.0",
@@ -18,7 +22,7 @@
     "less-plugin-clean-css": "^1.5.1"
   },
   "dependencies": {
-    "bootstrap": "^3.3.8",
+    "bootstrap": "^3.3.6",
     "font-awesome": "^4.5.0",
     "jquery": "^2.1.x",
     "modernizr": "^3.3.1"
